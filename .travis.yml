@@ -1,0 +1,27 @@
+language: generic
+sudo: required
+services:
+        - docker
+
+before_install: 
+        - docker build -t kamalikaxilinx/react-test -f ./client/Dockerfile.dev ./client
+        
+
+script:
+       - docker run -e CT=true kamalikaxilinx/react-test npm test
+
+after_success:
+        - docker build -t kamalikaxilinx/multi-client ./client
+        - docker build -t kamalikaxilnx/multi-nginx ./nginx
+        - docker build -t kamalikaxilinx/multi-server ./server
+        - docker build -t kamalikaxilinx.multi-worker ./worker
+          
+          #Log in to the docker cli
+        - echo "Docker_password" | docker login -u "$Docker_ID" --password-stdin
+          #Take those images and push them to docker hub
+        - docker push kamalikaxilinx/multi-client
+        - docker push kamalikaxilixnx/multi-server
+        - docker push kamalikaxilinx/multi-nginx
+        - docker push kamalikaxilinx/multi-worker
+
+

@@ -20,8 +20,8 @@ after_success:
         - echo "$Docker_password" | docker login -u "$Docker_ID" --password-stdin
           #Take those images and push them to docker hub
         - docker push kamalikaxilinx/multi-client
-        - docker push kamalikaxilixnx/multi-server
-        - docker push kamalikaxilinx/multi-nginx
+        - docker push kamalikaxilixnx/multi-nginx
+        - docker push kamalikaxilinx/multi-server
         - docker push kamalikaxilinx/multi-worker
 
 
